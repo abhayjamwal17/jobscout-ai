@@ -1,0 +1,57 @@
+# Runs JobScout AI on a schedule to fetch RemoteOK jobs and send them to Telegram.
+name: Daily Job Digest
+
+on:
+  # Lets anyone with write access trigger a run on-demand from the Actions tab.
+  workflow_dispatch: {}
+  # GitHub Actions schedules only accept UTC, so 9:00 AM IST (UTC+5:30) is
+  # expressed as 3:30 AM UTC. Cron fields are: minute hour day month weekday.
+  schedule:
+    - cron: '30 3 * * *'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Pull the repository contents so the workflow can install/build/run it.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Bail out early (before spending CI time on install/build) if either
+      # required secret hasn't been configured in the repo settings.
+      - name: Verify required secrets are configured
+        run: |
+          if [ -z "${{ secrets.TELEGRAM_BOT_TOKEN }}" ]; then
+            echo "::error::Missing required secret TELEGRAM_BOT_TOKEN. Add it under Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+          if [ -z "${{ secrets.TELEGRAM_CHAT_ID }}" ]; then
+            echo "::error::Missing required secret TELEGRAM_CHAT_ID. Add it under Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+
+      # Install Node.js 22 and enable the built-in npm cache, keyed off
+      # package-lock.json, so repeat runs skip re-downloading dependencies.
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      # npm ci installs exactly what's in package-lock.json for reproducible,
+      # clean-slate installs (faster and safer than `npm install` in CI).
+      - name: Install dependencies
+        run: npm ci
+
+      # Type-check and compile src/ to dist/ before running.
+      - name: Build the project
+        run: npm run build
+
+      # Run the compiled app, which fetches RemoteOK jobs and sends the
+      # digest to Telegram. Secrets are only exposed to this step's env.
+      - name: Run JobScout AI
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: npm start
