@@ -1,0 +1,164 @@
+{
+  "name": "Abhay Singh Jamwal",
+  "professionalSummary": "Academic Consistency | Technical Problem Solver | Product Thinking | Data-Driven Execution",
+  "education": [
+    {
+      "institution": "Indian Institute of Management, Sambalpur",
+      "degree": "MBA-BA",
+      "field": "",
+      "startYear": 2025,
+      "endYear": 2027
+    },
+    {
+      "institution": "Chitkara University Institute of Engineering & Technology",
+      "degree": "UG Degree",
+      "field": "",
+      "startYear": 2020,
+      "endYear": 2020
+    },
+    {
+      "institution": "Kendriya Vidyalaya No.1 Jammu",
+      "degree": "HSC (CBSE)",
+      "field": "",
+      "startYear": 2016,
+      "endYear": 2016
+    },
+    {
+      "institution": "Kendriya Vidyalaya No.1 Jammu",
+      "degree": "SSC (CBSE)",
+      "field": "",
+      "startYear": 2014,
+      "endYear": 2014
+    }
+  ],
+  "targetRoles": [
+    "(Inferred) Product Manager",
+    "(Inferred) Associate Product Manager",
+    "(Inferred) Business Analyst"
+  ],
+  "skills": [
+    "Academic Consistency",
+    "Technical Problem Solver",
+    "Product Thinking",
+    "Data-Driven Execution",
+    "Engineering Excellence"
+  ],
+  "technicalSkills": [
+    "React Native",
+    "ReactJs",
+    "Node.js"
+  ],
+  "analyticalSkills": [
+    "Stakeholder Analysis",
+    "Requirements Gathering",
+    "Process Improvement",
+    "Business Process Mapping",
+    "Root Cause Analysis",
+    "Data-Driven Decision-Making",
+    "Data Structures",
+    "Algorithmic Thinking",
+    "Problem Solving",
+    "User Journey Analysis",
+    "Conversion Funnel Analysis"
+  ],
+  "productSkills": [
+    "Product Thinking",
+    "Feature Feasibility & Planning",
+    "Stakeholder Management",
+    "Cross-Functional Product Execution",
+    "Requirement Discovery",
+    "Sprint Planning",
+    "Agile",
+    "Product Feature Development",
+    "Requirement Translation",
+    "Product Strategy",
+    "Road-mapping",
+    "UX/UI",
+    "Go-to-Market",
+    "Product Lifecycle Management",
+    "Feature Prioritization",
+    "Competitive Analysis",
+    "Product Audit"
+  ],
+  "tools": [
+    "Google Analytics",
+    "Microsoft Clarity",
+    "Excel",
+    "Tableau",
+    "Microsoft Copilot",
+    "Azure",
+    "Power BI"
+  ],
+  "programmingLanguages": [
+    "JavaScript",
+    "Python"
+  ],
+  "workExperience": [
+    {
+      "company": "Luxora Experiences",
+      "role": "Management Intern",
+      "duration": "Apr'26 - May'26",
+      "responsibilities": [
+        "Scaled CureMeAbroad's provider network by onboarding and validating 200+ hospitals across 5 countries, improving marketplace coverage, treatment discoverability, and platform trust for international patients.",
+        "Designed a standardized provider information framework for 300+ doctors across 5 countries, improving data consistency, physician discoverability, platform reliability, and overall healthcare provider search experience.",
+        "Optimized platform performance by conducting an end-to-end product audit, identifying UX bottlenecks, content gaps, feature opportunities; recommended enhancements that contributed to an 8% increase in website traffic.",
+        "Leveraged Google Analytics, Microsoft Clarity, and Excel to analyze user journeys and conversion funnels, translating behavioral insights into data-driven product improvements for user acquisition, engagement, retention."
+      ],
+      "achievements": [],
+      "skills": [
+        "Google Analytics",
+        "Microsoft Clarity",
+        "Excel"
+      ]
+    },
+    {
+      "company": "AppBoxer",
+      "role": "Software Engineer",
+      "duration": "Aug'22 - Aug'23",
+      "responsibilities": [
+        "Strengthened stakeholder alignment by leading client-facing product discussions, requirement discovery, and solution demonstrations, ensuring clear communication and successful feature delivery across multiple projects.",
+        "Enabled informed technical decision-making by evaluating feature feasibility, effort estimates, implementation approaches in React Native and Node.js, improving sprint planning accuracy and delivery predictability.",
+        "Drove execution across concurrent product initiatives by balancing the priorities, coordinating the cross-team deliverables, and ensuring timely delivery while maintaining consistent quality standards in Agile environments.",
+        "Accelerated product execution by bridging business and engineering teams through requirement analysis, feature evaluation, and solution discussions, improving cross-functional alignment and decision-making efficiency."
+      ],
+      "achievements": [
+        "Took complete ownership of end-to-end project delivery, steadily evolving from an individual contributor role to successfully leading and managing the entire development team in achieving all project objectives and goals."
+      ],
+      "skills": [
+        "React Native",
+        "Node.js",
+        "Agile"
+      ]
+    },
+    {
+      "company": "StartxLabs Technologies",
+      "role": "Associate JavaScript/ReactJs Developer",
+      "duration": "Mar'21 - Aug'22",
+      "responsibilities": [
+        "Built and enhanced cross-platform mobile and web applications using React Native and JavaScript, delivering scalable features, improving product functionality, and supporting seamless UX across diverse customer use cases.",
+        "Collaborated with stakeholders to translate business requirements into technical solutions, contributing to end-to-end feature development, product delivery, and alignment between user needs and implementation outcomes.",
+        "Mentored junior developers on engineering best practices, project workflows, accelerating onboarding, improving technical capabilities, team productivity, and enabling smoother execution across development initiatives.",
+        "Contributed to structured code review initiatives, improving code quality, maintainability, and performance while promoting engineering standards and supporting long-term product reliability across development projects."
+      ],
+      "achievements": [
+        "Received the 'Rising Star' Award (2022) for exceptional performance, accelerated learning, and impactful contributions, demonstrating strong execution and building a credible reputation across the organization."
+      ],
+      "skills": [
+        "React Native",
+        "JavaScript"
+      ]
+    }
+  ],
+  "projects": [
+    "Technology Strategy (Academic Project, 2025) - Conducted a business systems assessment for a local business, identifying technology gaps and designing a digital transformation roadmap to improve operational efficiency, scalability, performance, and growth.",
+    "BI Analytics (Academic Project, 2025) - Leveraged Tableau to analyze data of 25,000+ admission and examination records, transforming complex datasets into interactive dashboards that enabled insight discovery and evidence-based decision-making."
+  ],
+  "certifications": [
+    "Microsoft AI Product Manager (Microsoft, via Coursera, 2026) - Completed a professional certificate in AI product management, product strategy, road-mapping, UX/UI, and go-to-market. Gained hands-on experience with Microsoft Copilot, Azure, Power BI, product lifecycle management, feature prioritization, and competitive analysis.",
+    "Microsoft Business Analysis Fundamentals (Microsoft, via Coursera, 2026) - Learned core business analysis concepts including stakeholder analysis, requirements gathering, process improvement, business process mapping, root cause analysis, requirements documentation, and data-driven decision-making for solving business problems.",
+    "University of Michigan Python Programming & Data Structures (via Coursera, 2020) - Python Programming, Data Structures, Algorithmic Thinking, File Handling, Problem Solving, Software Development Fundamentals."
+  ],
+  "industries": [],
+  "yearsOfExperience": 2.6,
+  "preferredWorkType": "any"
+}

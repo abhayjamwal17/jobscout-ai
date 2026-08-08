@@ -33,12 +33,73 @@ Fill in `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` in `.env` (see
 src/
   index.ts        Entry point: fetches jobs and sends the digest to Telegram.
   config/         Environment/config loading.
-  services/       RemoteOK fetching, Telegram sending, job-digest formatting.
-  types/          Shared TypeScript types (e.g. Job).
+  services/       RemoteOK fetching, Telegram sending, job-digest formatting,
+                  seen-job memory, resume profile loading/saving.
+  types/          Shared TypeScript types (e.g. Job, ResumeProfile).
   utils/          Shared helper functions (e.g. Markdown escaping).
 .github/workflows/  CI and scheduled-run pipelines.
-memory/             Reserved for persisted agent state/history (empty for now).
+memory/             Persisted agent state: seen-jobs.json (dedup history,
+                    committed by the daily workflow) and resume.json
+                    (structured resume profile, see below).
 ```
+
+## Resume profile
+
+JobScout AI reasons about jobs against a structured **resume profile** —
+your resume's content parsed into a typed shape, not a raw PDF/DOCX. This
+lets future matching logic (not implemented yet) compare job postings
+against your skills, experience, and preferences programmatically.
+
+- **Type definition:** `src/types/resume.ts` (`ResumeProfile`).
+- **Read/write service:** `src/services/resume.service.ts`
+  (`loadResumeProfile()`, `saveResumeProfile(profile)`).
+- **Storage location:** `memory/resume.json`, committed to the repo like
+  `memory/seen-jobs.json` — it's structured data you control, not a secret.
+- **The original resume file** (PDF/DOCX) should go in the git-ignored
+  `resume/` folder, never committed. Only the structured JSON derived from
+  it lives in git.
+
+### `ResumeProfile` shape
+
+| Field                  | Type                       | Notes                                    |
+| ----------------------- | --------------------------- | ----------------------------------------- |
+| `name`                 | `string`                   |                                           |
+| `professionalSummary`  | `string`                   |                                           |
+| `education`            | `EducationEntry[]`         | see below                                |
+| `targetRoles`          | `string[]`                 | roles you're looking for                 |
+| `skills`               | `string[]`                 | general skills                           |
+| `technicalSkills`      | `string[]`                 |                                           |
+| `analyticalSkills`     | `string[]`                 |                                           |
+| `productSkills`        | `string[]`                 |                                           |
+| `tools`                | `string[]`                 |                                           |
+| `programmingLanguages` | `string[]`                 |                                           |
+| `workExperience`       | `WorkExperienceEntry[]`    | see below                                |
+| `projects`             | `string[]`                 |                                           |
+| `certifications`       | `string[]`                 |                                           |
+| `industries`           | `string[]`                 |                                           |
+| `yearsOfExperience`    | `number`                   | non-negative                             |
+| `preferredWorkType`    | `'remote' \| 'hybrid' \| 'onsite' \| 'any'` |                             |
+
+`EducationEntry`: `institution`, `degree`, `field`, `startYear` (`number`),
+`endYear` (`number | null` — `null` means in progress).
+
+`WorkExperienceEntry`: `company`, `role`, `duration` (free-form string, e.g.
+`"Jan 2022 - Present"`), `responsibilities` (`string[]`), `achievements`
+(`string[]`), `skills` (`string[]`).
+
+### Creating your resume profile
+
+There's no PDF importer yet (that's a future milestone) — for now, create
+`memory/resume.json` by hand, matching the shape above, or write a small
+script that calls `saveResumeProfile()` with a `ResumeProfile` object.
+`saveResumeProfile()` validates the shape before writing, and
+`loadResumeProfile()` validates again on read, so a malformed file is
+caught early with a specific list of what's wrong rather than failing
+somewhere downstream. If `memory/resume.json` doesn't exist yet,
+`loadResumeProfile()` throws a clear error telling you to create one first
+— it does not silently fall back to an empty profile, since an agent
+"understanding" a resume with no skills or experience would be worse than
+an explicit failure.
 
 ## Environment variables
 
