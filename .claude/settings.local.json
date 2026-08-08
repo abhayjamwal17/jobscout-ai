@@ -10,7 +10,12 @@
       "Bash(npm uninstall *)",
       "Bash(python3 -c \"import yaml,sys; d=yaml.safe_load\\(open\\('.github/workflows/daily.yml'\\)\\); print\\('OK'\\); print\\(d['on']\\)\")",
       "Bash(python -c \"import yaml,sys; d=yaml.safe_load\\(open\\('.github/workflows/daily.yml'\\)\\); print\\('OK'\\); print\\(d['on']\\)\")",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(npx tsc *)",
+      "Bash(npx eslint *)",
+      "Bash(python3 -c \"import yaml,sys; yaml.safe_load\\(open\\('.github/workflows/daily.yml'\\)\\); print\\('YAML OK'\\)\")",
+      "Bash(node -e \"const yaml=require\\('yaml'\\)\")",
+      "Bash(node *)"
     ]
   }
 }

@@ -13,6 +13,15 @@ jobs:
   run:
     runs-on: ubuntu-latest
 
+    # The only privileged action this workflow takes is pushing the updated
+    # memory/seen-jobs.json commit back to the repo, which needs read/write
+    # access to repo contents. Declaring `permissions` here overrides the
+    # default token scope and sets every other permission (issues,
+    # pull-requests, etc.) to `none`, so GITHUB_TOKEN gets exactly the one
+    # scope it uses and nothing more.
+    permissions:
+      contents: write
+
     steps:
       # Pull the repository contents so the workflow can install/build/run it.
       - name: Checkout repository
@@ -44,14 +53,42 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Lint before building so style/type issues fail fast, before spending
+      # time compiling or contacting Telegram.
+      - name: Lint
+        run: npm run lint
+
       # Type-check and compile src/ to dist/ before running.
       - name: Build the project
         run: npm run build
 
-      # Run the compiled app, which fetches RemoteOK jobs and sends the
-      # digest to Telegram. Secrets are only exposed to this step's env.
+      # Run the compiled app, which fetches RemoteOK jobs, sends the digest
+      # to Telegram, and updates memory/seen-jobs.json on disk. Secrets are
+      # only exposed to this step's env. If this step fails (job fetch or
+      # Telegram send error), it exits non-zero and the job below is
+      # skipped, so the workflow run is correctly marked failed.
       - name: Run JobScout AI
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: npm start
+
+      # Runners are ephemeral: each run starts from a fresh checkout, so the
+      # dedup memory written by the app only survives if it's committed back
+      # to the repo. This step only runs if "Run JobScout AI" succeeded
+      # (GitHub Actions skips subsequent steps after a failed step by
+      # default), and only touches memory/seen-jobs.json specifically, so
+      # .env, node_modules/, dist/, and any other generated files (all
+      # already gitignored) are never staged.
+      - name: Commit updated job memory
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git status --porcelain -- memory/seen-jobs.json | grep -q .; then
+            git add memory/seen-jobs.json
+            git commit -m "chore: update seen jobs memory [skip ci]"
+            git push
+          else
+            echo "memory/seen-jobs.json unchanged; nothing to commit."
+          fi
