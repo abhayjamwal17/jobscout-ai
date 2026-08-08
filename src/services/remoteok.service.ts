@@ -16,6 +16,7 @@ interface RemoteOkJobRaw {
   salary_min?: number | string;
   salary_max?: number | string;
   date?: string;
+  description?: string;
 }
 
 // The RemoteOK API prepends a non-job "legal notice" object to the array,
@@ -35,6 +36,23 @@ function toNumberOrNull(value: number | string | undefined): number | null {
   return Number.isFinite(num) && num > 0 ? num : null;
 }
 
+// RemoteOK's "description" field is an HTML fragment; strip tags/entities
+// down to plain text so it can be dropped straight into an LLM prompt.
+function stripHtml(html: string): string {
+  return html
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/(p|div|li)>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 function normalizeJob(raw: RemoteOkJobRaw): Job {
   return {
     id: raw.id,
@@ -47,6 +65,7 @@ function normalizeJob(raw: RemoteOkJobRaw): Job {
     salaryMax: toNumberOrNull(raw.salary_max),
     postedAt: raw.date ?? '',
     source: 'remoteok',
+    description: raw.description ? stripHtml(raw.description) : '',
   };
 }
 

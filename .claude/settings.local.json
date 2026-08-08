@@ -15,7 +15,8 @@
       "Bash(npx eslint *)",
       "Bash(python3 -c \"import yaml,sys; yaml.safe_load\\(open\\('.github/workflows/daily.yml'\\)\\); print\\('YAML OK'\\)\")",
       "Bash(node -e \"const yaml=require\\('yaml'\\)\")",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(npm view *)"
     ]
   }
 }

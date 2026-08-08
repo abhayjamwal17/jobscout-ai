@@ -9,4 +9,6 @@ export interface Job {
   salaryMax: number | null;
   postedAt: string;
   source: string;
+  /** Plain-text job posting body (HTML stripped). Empty string if the source didn't provide one. */
+  description: string;
 }
